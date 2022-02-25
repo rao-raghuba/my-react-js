@@ -3,10 +3,11 @@
  * 
  */
 import React from 'react';
+import { ProductsContext } from '../context/productsContexts';
 import { debounce } from '../utils'
 
-class Menu extends React.Component {
-
+class Menu extends React.PureComponent {
+    static contextType = ProductsContext;
     /**
      * Main constructor for the Menu Class
      * @memberof Menu
@@ -33,10 +34,8 @@ class Menu extends React.Component {
     }
 
     loadData = async (value) => {
-        try {
-            const res = await fetch('http://localhost:3035/');
-        } catch (error) {
-            
+        if(value) {
+            this.context.searchProducts(value);
         }
     }
 

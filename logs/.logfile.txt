@@ -121,3 +121,85 @@
 [25/2/2022 -- 12:57]  Scripts ran on main.js
 [25/2/2022 -- 12:58]  Scripts ran on main.js
 [25/2/2022 -- 12:58]  Scripts ran on main.js
+[25/2/2022 -- 13:9]  Info task started
+[25/2/2022 -- 13:9]  Mustache Templates ran on the HTML files
+[25/2/2022 -- 13:9]  Scripts ran on main.js
+[25/2/2022 -- 13:9]  Sass ran on files
+[25/2/2022 -- 13:29]  restarted!
+[25/2/2022 -- 13:29]  restarted!
+[25/2/2022 -- 13:30]  restarted!
+[25/2/2022 -- 13:30]  restarted!
+[25/2/2022 -- 13:30]  Info task started
+[25/2/2022 -- 13:30]  Mustache Templates ran on the HTML files
+[25/2/2022 -- 13:30]  Scripts ran on main.js
+[25/2/2022 -- 13:30]  Sass ran on files
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:31]  restarted!
+[25/2/2022 -- 13:33]  Scripts ran on main.js
+[25/2/2022 -- 13:33]  Scripts ran on main.js
+[25/2/2022 -- 13:33]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:35]  Scripts ran on main.js
+[25/2/2022 -- 13:38]  Scripts ran on main.js
+[25/2/2022 -- 13:39]  Scripts ran on main.js
+[25/2/2022 -- 13:39]  Scripts ran on main.js
+[25/2/2022 -- 13:39]  Scripts ran on main.js
+[25/2/2022 -- 13:40]  Scripts ran on main.js
+[25/2/2022 -- 13:41]  Scripts ran on main.js
+[25/2/2022 -- 13:41]  Scripts ran on main.js
+[25/2/2022 -- 13:42]  Scripts ran on main.js
+[25/2/2022 -- 13:42]  Scripts ran on main.js
+[25/2/2022 -- 13:43]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:45]  Scripts ran on main.js
+[25/2/2022 -- 13:45]  Scripts ran on main.js
+[25/2/2022 -- 13:46]  Scripts ran on main.js
+[25/2/2022 -- 13:46]  Scripts ran on main.js
+[25/2/2022 -- 13:47]  Scripts ran on main.js
+[25/2/2022 -- 13:47]  Scripts ran on main.js
+[25/2/2022 -- 13:48]  Scripts ran on main.jsn.js
+[25/2/2022 -- 13:33]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:34]  Scripts ran on main.js
+[25/2/2022 -- 13:35]  Scripts ran on main.js
+[25/2/2022 -- 13:38]  Scripts ran on main.js
+[25/2/2022 -- 13:39]  Scripts ran on main.js
+[25/2/2022 -- 13:39]  Scripts ran on main.js
+[25/2/2022 -- 13:39]  Scripts ran on main.js
+[25/2/2022 -- 13:40]  Scripts ran on main.js
+[25/2/2022 -- 13:41]  Scripts ran on main.js
+[25/2/2022 -- 13:41]  Scripts ran on main.js
+[25/2/2022 -- 13:42]  Scripts ran on main.js
+[25/2/2022 -- 13:42]  Scripts ran on main.js
+[25/2/2022 -- 13:43]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:44]  Scripts ran on main.js
+[25/2/2022 -- 13:45]  Scripts ran on main.js
+[25/2/2022 -- 13:45]  Scripts ran on main.js
+[25/2/2022 -- 13:46]  Scripts ran on main.js
+[25/2/2022 -- 13:46]  Scripts ran on main.js
+[25/2/2022 -- 13:47]  Scripts ran on main.js
+[25/2/2022 -- 13:47]  Scripts ran on main.js
+[25/2/2022 -- 13:48]  Scripts ran on main.js

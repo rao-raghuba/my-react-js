@@ -36,6 +36,11 @@ const port = 3035;
 http
   .createServer(function (req, res) {
     // .. Here you can create your data response in a JSON format
+    const headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+      "Access-Control-Max-Age": 2592000, // 30 days
+    };
 
     console.log("req.url", req.url);
 
@@ -57,9 +62,16 @@ http
     console.log("id", id);
 
     if (pathname === "/products" && method === "GET") {
-      res.writeHead(200, {
-        "Content-Type": "application/json",
-      });
+      res.writeHead(
+        200,
+        Object.assign(
+          {},
+          {
+            "Content-Type": "application/json",
+          },
+          headers
+        )
+      );
       if (id) {
         const product = data.find((x) => x._id === id);
         res.write(JSON.stringify(product));
@@ -68,7 +80,10 @@ http
         if (query.search) {
           const regex = new RegExp(query.search, "i");
           const filterProducts = data.filter(
-            (x) => x.name.search(regex) !== -1 || x.about.search(regex) !== -1 || x.tags.some(e => regex.test(e))
+            (x) =>
+              x.name.search(regex) !== -1 ||
+              x.about.search(regex) !== -1 ||
+              x.tags.some((e) => regex.test(e))
           );
           res.write(JSON.stringify(filterProducts));
           res.end();
