@@ -17,7 +17,7 @@ import ReactDOM from "react-dom";
 
 import Menu from "./components/menu";
 import Home from "./components/home";
-import { ProductsProvider } from "./context/productsContexts";
+import { ProductsProvider } from "./context/productsContext";
 
 /**
  * We can start our initial App here in the main.js file

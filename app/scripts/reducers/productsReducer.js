@@ -14,7 +14,7 @@ export default (state = initialState, { type, payload }) => {
       return payload;
 
     case RESET_PRODUCTS:
-        return initialState;
+      return initialState;
 
     default:
       return state;

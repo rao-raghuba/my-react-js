@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useReducer,
-} from "react";
+import React, { createContext, useCallback, useMemo, useReducer } from "react";
 import {
   FAIL,
   LOAD_PRODUCTS,
@@ -24,61 +18,60 @@ export const ProductsProvider = ({ children }) => {
     try {
       dispatch({
         type: `${LOAD_PRODUCTS}_${REQUEST}`,
-        payload: { message: "Loading Products.." },
+        payload: { message: "Loading Products..." },
       });
       const res = await fetch("http://localhost:3035/products");
       const json = await res.json();
       dispatch({
         type: `${LOAD_PRODUCTS}_${SUCCESS}`,
-        payload: json,
+        payload: json.data,
       });
     } catch (error) {
       dispatch({
         type: `${LOAD_PRODUCTS}_${FAIL}`,
-        payload: { error, message: "load products fail..." },
+        payload: {
+          error,
+          message: "Load products failed...",
+        },
       });
     }
-  }, []);
+  });
 
-  const searchProducts = useCallback(async (search) => {
+  const searchProducts = useCallback(async (value) => {
     try {
       dispatch({
         type: `${SEARCH_PRODUCTS}_${REQUEST}`,
         payload: { message: "Searching Products..." },
       });
-      const res = await fetch(
-        `http://localhost:3035/products?search=${search}`
-      );
+      const res = await fetch(`http://localhost:3035/products?search=${value}`);
       const json = await res.json();
       dispatch({
         type: `${SEARCH_PRODUCTS}_${SUCCESS}`,
-        payload: json,
+        payload: json.data,
       });
     } catch (error) {
       dispatch({
         type: `${SEARCH_PRODUCTS}_${FAIL}`,
-        payload: { message: "Searching Products Fail" },
-        error,
+        payload: {
+          error,
+          message: "Search products failed..",
+        },
       });
     }
-  }, []);
+  });
 
-  const resetProducts = useCallback(()=> {
-      dispatch({ type: RESET_PRODUCTS})
-  }, [])
+  const resetProducts = useCallback(() => {
+    dispatch({ type: RESET_PRODUCTS });
+  }, []);
 
   const value = useMemo(
     () => ({ loadProducts, searchProducts, resetProducts, ...state }),
-    [state, loadProducts, searchProducts, resetProducts]
+    [loadProducts, searchProducts, resetProducts, state]
   );
 
   return (
-    <ProductsContext.Provider
-      value={value}
-    >
+    <ProductsContext.Provider value={value}>
       {children}
     </ProductsContext.Provider>
   );
 };
-
-export const useProducts = () => useContext(ProductsContext);

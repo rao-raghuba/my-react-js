@@ -1,4 +1,4 @@
-import errorReducer from "./errorReducer"
+import errorsReducer from "./errorsReducer"
 import loadingReducer from "./loadingReducer"
 import productsReducer from "./productsReducer"
 
@@ -8,10 +8,10 @@ export const initialRootState = {
     loading: []
 }
 
-export default (state, action) => {
+export default (state = initialRootState, action) => {
   return {
     products: productsReducer(state.products, action),
-    errors: errorReducer(state.errors, action),
+    errors: errorsReducer(state.errors, action),
     loading: loadingReducer(state.loading, action)
   }
 }

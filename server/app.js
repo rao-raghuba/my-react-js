@@ -36,65 +36,149 @@ const port = 3035;
 http
   .createServer(function (req, res) {
     // .. Here you can create your data response in a JSON format
-    const headers = {
+
+    const CORS = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
       "Access-Control-Max-Age": 2592000, // 30 days
     };
 
-    console.log("req.url", req.url);
-
     const uri = url.parse(req.url, true);
-    const query = uri.query;
     const method = req.method;
+    const query = uri.query;
     let pathname = uri.pathname;
     let id;
+    
 
-    const splitUri = uri.pathname.split("/");
-    if (splitUri.length >= 3) {
-      pathname = `/${splitUri[1]}`;
-      id = splitUri[2];
+    console.log(query);
+    console.log(pathname);
+    
+    const splitPath = pathname.split("/");
+    console.log(splitPath);
+
+    if (splitPath.length > 2) {
+      pathname = `/${splitPath[1]}`;
+      id = splitPath[2];
     }
 
-    console.log("pathname", pathname);
-    console.log("method", method);
-    console.log("query", query);
-    console.log("id", id);
+    if ((pathname = "/products" && method === "GET")) {
+      res.writeHead(200, {
+        "Content-Type": "application/json",
+        ...CORS
+      });
 
-    if (pathname === "/products" && method === "GET") {
-      res.writeHead(
-        200,
-        Object.assign(
-          {},
-          {
-            "Content-Type": "application/json",
-          },
-          headers
-        )
-      );
       if (id) {
-        const product = data.find((x) => x._id === id);
-        res.write(JSON.stringify(product));
+        const product = data.find((x) => x._id === id && JSON.parse(x.isActive));
+        if (product) {
+          res.write(JSON.stringify({ success: true, data: product }));
+        } else {
+          res.writeHead(400, {
+            "Content-Type": "application/json",
+            ...CORS
+          });
+          res.write(
+            JSON.stringify({
+              success: false,
+              errorMessage: "Id not found",
+              data: null,
+            })
+          );
+        }
         res.end();
+        return;
       } else if (Object.keys(query).length > 0) {
         if (query.search) {
           const regex = new RegExp(query.search, "i");
           const filterProducts = data.filter(
-            (x) =>
-              x.name.search(regex) !== -1 ||
-              x.about.search(regex) !== -1 ||
-              x.tags.some((e) => regex.test(e))
+            (product) =>
+              (product.name.search(regex) !== -1 ||
+              product.about.search(regex) !== -1 ||
+              product.tags.some(tag => regex.test(tag))) && JSON.parse(product.isActive)
           );
-          res.write(JSON.stringify(filterProducts));
+          res.write(JSON.stringify({ success: true, data: filterProducts }));
+          res.end();
+        } else {
+          res.writeHead(400, {
+            "Content-Type": "application/json",
+            ...CORS
+          });
+          res.write(
+            JSON.stringify({
+              success: false,
+              errorMessage: "query param is not available",
+              data: null,
+            })
+          );
           res.end();
         }
-        res.end();
       } else {
-        res.write(JSON.stringify(data));
+        res.write(JSON.stringify({ success: true, data }));
         res.end();
       }
       return;
     }
+
+    res.write("response");
+    res.end();
+    // const headers = {
+    //   "Access-Control-Allow-Origin": "*",
+    //   "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+    //   "Access-Control-Max-Age": 2592000, // 30 days
+    // };
+
+    // console.log("req.url", req.url);
+
+    // const uri = url.parse(req.url, true);
+    // const query = uri.query;
+    // const method = req.method;
+    // let pathname = uri.pathname;
+    // let id;
+
+    // const splitUri = uri.pathname.split("/");
+    // if (splitUri.length >= 3) {
+    //   pathname = `/${splitUri[1]}`;
+    //   id = splitUri[2];
+    // }
+
+    // console.log("pathname", pathname);
+    // console.log("method", method);
+    // console.log("query", query);
+    // console.log("id", id);
+
+    // if (pathname === "/products" && method === "GET") {
+    //   res.writeHead(
+    //     200,
+    //     Object.assign(
+    //       {},
+    //       {
+    //         "Content-Type": "application/json",
+    //       },
+    //       headers
+    //     )
+    //   );
+    //   if (id) {
+    //     const product = data.find((x) => x._id === id);
+    //     res.write(JSON.stringify(product));
+    //     res.end();
+    //   } else if (Object.keys(query).length > 0) {
+    //     if (query.search) {
+    //       const regex = new RegExp(query.search, "i");
+    //       const filterProducts = data.filter(
+    //         (x) =>
+    //           x.name.search(regex) !== -1 ||
+    //           x.about.search(regex) !== -1 ||
+    //           x.tags.some((e) => regex.test(e))
+    //       );
+    //       res.write(JSON.stringify(filterProducts));
+    //       res.end();
+    //     }
+    //     res.end();
+    //   } else {
+    //     res.write(JSON.stringify(data));
+    //     res.end();
+    //   }
+    //   return;
+    // }
 
     // const uri = url.parse(req.url, true);
     // const method = req.method;
@@ -142,8 +226,6 @@ http
     //     res.end(); //end the response
     //   }
     // }
-    res.write("response");
-    res.end();
   })
   .listen(port);
 

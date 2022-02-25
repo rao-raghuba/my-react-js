@@ -3,7 +3,8 @@
  *
  */
 import React from "react";
-import { ProductsContext, ProductsProvider } from "../context/productsContexts";
+import { LOAD_PRODUCTS } from "../constants/actionTypes";
+import { ProductsContext } from "../context/productsContext";
 
 class Home extends React.PureComponent {
   static contextType = ProductsContext;
@@ -23,34 +24,31 @@ class Home extends React.PureComponent {
       <section id="home">
         <div className="content">
           <ProductsContext.Consumer>
-            {({ products, loading }) => {
-              console.log(products);
-              console.log(loading);
+            {({ products, loading, errors }) => {
+              const hasLoader = loading.find((x) => x.type === LOAD_PRODUCTS);
 
-              return (
-                <div>
-                  {products.map((product) => {
-                    return (
-                      <div key={product._id}>
-                        <img
-                          src={product.picture}
-                          alt={product.name}
-                          height={100}
-                          width={100}
-                          lazy
-                        />
-                        <h2>{product.name}</h2>
-                        <p>{product.about}</p>
-                        <div>
-                          {product.tags.map((tag) => (
-                            <div key={tag}>{tag}</div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
+              if (hasLoader) {
+                return <h3 style={{ color: 'red'}}>{hasLoader.message}</h3>;
+              }
+
+              return products.map((product) => (
+                <div key={product._id}>
+                  <img
+                    src={product.picture}
+                    alt={XMLDocument.name}
+                    lazy="true"
+                    height={200}
+                    width={200}
+                  />
+                  <h2>{product.name}</h2>
+                  <p>{product.about}</p>
+                  <div>
+                    {product.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
                 </div>
-              );
+              ));
             }}
           </ProductsContext.Consumer>
         </div>
