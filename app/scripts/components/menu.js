@@ -36,6 +36,8 @@ class Menu extends React.PureComponent {
     loadData = async (value) => {
         if(value) {
             this.context.searchProducts(value);
+        } else {
+            this.context.resetProducts();
         }
     }
 

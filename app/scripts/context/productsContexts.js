@@ -9,6 +9,7 @@ import {
   FAIL,
   LOAD_PRODUCTS,
   REQUEST,
+  RESET_PRODUCTS,
   SEARCH_PRODUCTS,
   SUCCESS,
 } from "../constants/actionTypes";
@@ -62,9 +63,13 @@ export const ProductsProvider = ({ children }) => {
     }
   }, []);
 
+  const resetProducts = useCallback(()=> {
+      dispatch({ type: RESET_PRODUCTS})
+  }, [])
+
   const value = useMemo(
-    () => ({ loadProducts, searchProducts, ...state }),
-    [state, loadProducts, searchProducts]
+    () => ({ loadProducts, searchProducts, resetProducts, ...state }),
+    [state, loadProducts, searchProducts, resetProducts]
   );
 
   return (
