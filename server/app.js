@@ -37,53 +37,97 @@ http
   .createServer(function (req, res) {
     // .. Here you can create your data response in a JSON format
 
+    console.log("req.url", req.url);
+
     const uri = url.parse(req.url, true);
-    const method = req.method;
-    let path = uri.pathname;
     const query = uri.query;
+    const method = req.method;
+    let pathname = uri.pathname;
+    let id;
 
-    const splitPath = path.split("/");
-
-    console.log("splitPath", splitPath);
-
-    let params = undefined;
-
-    res.on("error", (error) => {
-        
-    })
-
-    if (splitPath.length > 0) {
-      path = splitPath[1];
-      params = splitPath[2] || undefined;
+    const splitUri = uri.pathname.split("/");
+    if (splitUri.length >= 3) {
+      pathname = `/${splitUri[1]}`;
+      id = splitUri[2];
     }
 
-    res.writeHead(200, { "Content-Type": "application/json" }); // http header
-    if (path === "products" && method === "GET" && params === undefined) {
-      console.log("query", query);
-      if (query.search) {
-        const regex = new RegExp(query.search, "i");
-        const filterProducts = data.filter(
-          (x) =>
-            x.name.search(regex) !== -1 ||
-            x.about.search(regex) !== -1 ||
-            x.tags.includes(query.search)
-        );
-        res.write(JSON.stringify(filterProducts)); // Write out the default response
-        res.end(); //end the response
+    console.log("pathname", pathname);
+    console.log("method", method);
+    console.log("query", query);
+    console.log("id", id);
+
+    if (pathname === "/products" && method === "GET") {
+      res.writeHead(200, {
+        "Content-Type": "application/json",
+      });
+      if (id) {
+        const product = data.find((x) => x._id === id);
+        res.write(JSON.stringify(product));
+        res.end();
+      } else if (Object.keys(query).length > 0) {
+        if (query.search) {
+          const regex = new RegExp(query.search, "i");
+          const filterProducts = data.filter(
+            (x) => x.name.search(regex) !== -1 || x.about.search(regex) !== -1 || x.tags.some(e => regex.test(e))
+          );
+          res.write(JSON.stringify(filterProducts));
+          res.end();
+        }
+        res.end();
       } else {
-        res.write(JSON.stringify(data)); // Write out the default response
-        res.end(); //end the response
+        res.write(JSON.stringify(data));
+        res.end();
       }
+      return;
     }
 
-    if (path === "products" && method === "GET" && params !== undefined) {
-      const item = data.find((x) => x._id === params);
-      if (item) {
-        res.write(JSON.stringify(item)); // Write out the default response
-        res.end(); //end the response
-      }
-    }
+    // const uri = url.parse(req.url, true);
+    // const method = req.method;
+    // let path = uri.pathname;
+    // const query = uri.query;
 
+    // const splitPath = path.split("/");
+
+    // console.log("splitPath", splitPath);
+
+    // let params = undefined;
+
+    // res.on("error", (error) => {
+
+    // })
+
+    // if (splitPath.length > 0) {
+    //   path = splitPath[1];
+    //   params = splitPath[2] || undefined;
+    // }
+
+    // res.writeHead(200, { "Content-Type": "application/json" }); // http header
+    // if (path === "products" && method === "GET" && params === undefined) {
+    //   console.log("query", query);
+    //   if (query.search) {
+    //     const regex = new RegExp(query.search, "i");
+    //     const filterProducts = data.filter(
+    //       (x) =>
+    //         x.name.search(regex) !== -1 ||
+    //         x.about.search(regex) !== -1 ||
+    //         x.tags.includes(query.search)
+    //     );
+    //     res.write(JSON.stringify(filterProducts)); // Write out the default response
+    //     res.end(); //end the response
+    //   } else {
+    //     res.write(JSON.stringify(data)); // Write out the default response
+    //     res.end(); //end the response
+    //   }
+    // }
+
+    // if (path === "products" && method === "GET" && params !== undefined) {
+    //   const item = data.find((x) => x._id === params);
+    //   if (item) {
+    //     res.write(JSON.stringify(item)); // Write out the default response
+    //     res.end(); //end the response
+    //   }
+    // }
+    res.write("response");
     res.end();
   })
   .listen(port);
