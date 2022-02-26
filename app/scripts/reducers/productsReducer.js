@@ -8,6 +8,7 @@ import {
 const initialState = [];
 
 export default (state = initialState, { type, payload }) => {
+  console.log("productsReducer");
   switch (type) {
     case `${LOAD_PRODUCTS}_${SUCCESS}`:
     case `${SEARCH_PRODUCTS}_${SUCCESS}`:

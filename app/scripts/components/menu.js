@@ -12,11 +12,13 @@ class Menu extends React.PureComponent {
    * Main constructor for the Menu Class
    * @memberof Menu
    */
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      showingSearch: false,
+      showingSearch: props.showingSearch || false,
+      drawSearchBar: props.drawSearchBar || true,
     };
+    console.log(this.state);
     this.search = debounce(this.searchProduct, 500);
   }
 
@@ -29,6 +31,7 @@ class Menu extends React.PureComponent {
     e.preventDefault();
     this.setState({
       showingSearch: !this.state.showingSearch,
+      drawSearchBar: true
     });
   }
 
@@ -39,6 +42,7 @@ class Menu extends React.PureComponent {
    */
   onSearch(e) {
     const { value } = e.target;
+    this.context.searchTerm = value;
     if (value) {
       this.search(value);
     } else {
@@ -91,16 +95,20 @@ class Menu extends React.PureComponent {
             </nav>
           </div>
         </div>
-        <div
+
+        <div id="searchBar"
           className={
             (this.state.showingSearch ? "showing " : "") + "search-container"
           }
         >
-          <input type="text" onChange={(e) => this.onSearch(e)} />
+          <input type="text" id="searchTermInput" onChange={(e) => this.onSearch(e)} />
           <a href="#" onClick={(e) => this.showSearchContainer(e)}>
             <i className="material-icons close">close</i>
           </a>
+
+
         </div>
+        )
       </header>
     );
   }

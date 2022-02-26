@@ -3,6 +3,7 @@ import { FAIL } from "../constants/actionTypes";
 const initialState = [];
 
 export default (state = initialState, { type, payload }) => {
+  console.log("errorsReducer");
   const matches = /(.*)_(REQUEST|FAIL)/.exec(type);
   if (!matches) return state;
   const [, action, actionType] = matches;

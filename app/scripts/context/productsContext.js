@@ -4,6 +4,7 @@ import {
   LOAD_PRODUCTS,
   REQUEST,
   RESET_PRODUCTS,
+  RESET_SEARCH_TERM,
   SEARCH_PRODUCTS,
   SUCCESS,
 } from "../constants/actionTypes";
@@ -49,6 +50,7 @@ export const ProductsProvider = ({ children }) => {
         type: `${SEARCH_PRODUCTS}_${SUCCESS}`,
         payload: json.data,
       });
+      resetSearchTerm();
     } catch (error) {
       dispatch({
         type: `${SEARCH_PRODUCTS}_${FAIL}`,
@@ -63,7 +65,10 @@ export const ProductsProvider = ({ children }) => {
   const resetProducts = useCallback(() => {
     dispatch({ type: RESET_PRODUCTS });
   }, []);
-
+  const resetSearchTerm = useCallback(() => {
+    document.getElementById('searchTermInput').value = '';
+    document.getElementById('searchBar').style.display = 'none';
+  }, [])
   const value = useMemo(
     () => ({ loadProducts, searchProducts, resetProducts, ...state }),
     [loadProducts, searchProducts, resetProducts, state]
