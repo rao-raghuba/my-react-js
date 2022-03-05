@@ -1,5 +1,6 @@
 import {
   LOAD_PRODUCTS,
+  NO_PRODUCTS_FOUND,
   RESET_PRODUCTS,
   SEARCH_PRODUCTS,
   SUCCESS,
@@ -16,6 +17,8 @@ export default (state = initialState, { type, payload }) => {
 
     case RESET_PRODUCTS:
       return initialState;
+    case NO_PRODUCTS_FOUND:
+      return [{ type: NO_PRODUCTS_FOUND, message: "No Matching products found" }]
 
     default:
       return state;

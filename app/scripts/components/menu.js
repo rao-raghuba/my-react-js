@@ -2,11 +2,12 @@
  * This file will hold the Menu that lives at the top of the Page, this is all rendered using a React Component...
  *
  */
-import React from "react";
+import React, { createRef } from "react";
 import { ProductsContext } from "../context/productsContext";
 import { debounce } from "../utils";
 
 class Menu extends React.PureComponent {
+  inputSearchRef;
   static contextType = ProductsContext;
   /**
    * Main constructor for the Menu Class
@@ -19,6 +20,7 @@ class Menu extends React.PureComponent {
       drawSearchBar: props.drawSearchBar || true,
     };
     console.log(this.state);
+    this.inputSearchRef = createRef();
     this.search = debounce(this.searchProduct, 500);
   }
 
@@ -52,6 +54,7 @@ class Menu extends React.PureComponent {
 
   searchProduct = (value) => {
     this.context.searchProducts(value);
+    this.inputSearchRef.current.value = '';
   };
 
   /**
@@ -101,7 +104,7 @@ class Menu extends React.PureComponent {
             (this.state.showingSearch ? "showing " : "") + "search-container"
           }
         >
-          <input type="text" id="searchTermInput" onChange={(e) => this.onSearch(e)} />
+          <input type="text" onChange={(e) => this.onSearch(e)} ref={this.inputSearchRef} />
           <a href="#" onClick={(e) => this.showSearchContainer(e)}>
             <i className="material-icons close">close</i>
           </a>

@@ -4,9 +4,9 @@ import {
   LOAD_PRODUCTS,
   REQUEST,
   RESET_PRODUCTS,
-  RESET_SEARCH_TERM,
   SEARCH_PRODUCTS,
   SUCCESS,
+  NO_PRODUCTS_FOUND
 } from "../constants/actionTypes";
 import rootReducer, { initialRootState } from "../reducers/rootReducer";
 
@@ -46,11 +46,23 @@ export const ProductsProvider = ({ children }) => {
       });
       const res = await fetch(`http://localhost:3035/products?search=${value}`);
       const json = await res.json();
-      dispatch({
-        type: `${SEARCH_PRODUCTS}_${SUCCESS}`,
-        payload: json.data,
-      });
-      resetSearchTerm();
+      const newArr = Array.from(await json.data);
+      console.log('length=', newArr.length);
+      if (newArr.length === 0) {
+        dispatch({
+          type: `${SEARCH_PRODUCTS}_${FAIL}`,
+          payload: {
+            error:
+              { message: "No matching products found...." },
+          },
+        })
+      }
+      else {
+        dispatch({
+          type: `${SEARCH_PRODUCTS}_${SUCCESS}`,
+          payload: json.data,
+        });
+      }
     } catch (error) {
       dispatch({
         type: `${SEARCH_PRODUCTS}_${FAIL}`,
@@ -65,10 +77,7 @@ export const ProductsProvider = ({ children }) => {
   const resetProducts = useCallback(() => {
     dispatch({ type: RESET_PRODUCTS });
   }, []);
-  const resetSearchTerm = useCallback(() => {
-    document.getElementById('searchTermInput').value = '';
-    document.getElementById('searchBar').style.display = 'none';
-  }, [])
+
   const value = useMemo(
     () => ({ loadProducts, searchProducts, resetProducts, ...state }),
     [loadProducts, searchProducts, resetProducts, state]

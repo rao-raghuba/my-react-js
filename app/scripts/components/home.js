@@ -3,7 +3,7 @@
  *
  */
 import React from "react";
-import { LOAD_PRODUCTS, SEARCH_PRODUCTS } from "../constants/actionTypes";
+import { LOAD_PRODUCTS, NO_PRODUCTS_FOUND, SEARCH_PRODUCTS } from "../constants/actionTypes";
 import { ProductsContext } from "../context/productsContext";
 import Menu from './menu';
 
@@ -27,16 +27,24 @@ class Home extends React.PureComponent {
           <ProductsContext.Consumer>
             {({ products, loading, errors }) => {
               const hasLoader = loading.find((x) => x.type === SEARCH_PRODUCTS);
-              console.log(hasLoader);
+              const noProducts = products.find((x) => x.type === NO_PRODUCTS_FOUND);
+              console.log('hasLoader=', hasLoader);
+              console.log('noProducts=', noProducts);
               if (hasLoader) {
-
+                console.log(hasLoader.message);
                 return (<>
-                  <h3 style={{ color: 'red', textAlign: 'center' }}>{hasLoader.message}</h3>
+                  <h3 style={{ color: 'red', textAlign: 'center', paddingTop: '50px' }}>{hasLoader.message}</h3>
                 </>);
               }
               else if (errors && errors[0]) {
+                console.log(errors)
                 return (<>
-                  <h1 style={{ color: 'red', textAlign: 'center' }}>{errors[0].error.message}</h1>
+                  <h1 style={{ color: 'red', textAlign: 'center', paddingTop: '50px' }}>{errors[0].error.message}</h1>
+                </>);
+              }
+              else if (noProducts) {
+                return (<>
+                  <h1 style={{ color: 'red', textAlign: 'center', paddingTop: '50px' }}>{noProducts.message}</h1>
                 </>);
               }
               else {
